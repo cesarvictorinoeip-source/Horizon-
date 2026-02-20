@@ -1,0 +1,23 @@
+﻿@using Application.ViewModels.Simulacion
+@model SimulacionConfigViewModel
+
+<div class="container mt-5">
+    <div class="card border-danger shadow">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">Confirmar Eliminación</h4>
+        </div>
+        <div class="card-body">
+            <p class="fs-5">¿Está seguro que desea eliminar este macroindicador de la simulación?</p>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item"><strong>Macroindicador:</strong> @Model.Nombre</li>
+                <li class="list-group-item"><strong>Peso actual:</strong> @Model.Peso</li>
+            </ul>
+
+            <form asp-action="ConfirmarEliminar" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <button type="submit" class="btn btn-danger px-4">Aceptar</button>
+                <a asp-action="Index" class="btn btn-secondary px-4">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>

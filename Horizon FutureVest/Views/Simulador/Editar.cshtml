@@ -1,0 +1,59 @@
+﻿@using Application.ViewModels.Simulacion
+@* Esta línea es la más importante: define que recibimos UN SOLO objeto *@
+@model SimulacionFormViewModel
+
+@{
+    ViewData["Title"] = "Editar Peso del Indicador";
+}
+
+<div class="container mt-4">
+    <div class="card shadow border-warning">
+        <div class="card-header bg-warning py-3">
+            <h4 class="mb-0 text-dark fw-bold"><i class="bi bi-pencil-square"></i> Editar Peso</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Editar" method="post">
+                @* Campos ocultos para que el controlador sepa qué registro actualizar *@
+                <input type="hidden" name="MacroindicadorId" value="@Model.MacroindicadorId" />
+                <input type="hidden" name="NombreMacro" value="@Model.NombreMacro" />
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold text-muted">Macroindicador Seleccionado</label>
+                    @* Mostramos el nombre como texto para evitar el cuadro azul vacío *@
+                    <div class="form-control bg-light p-3 fw-bold text-primary">
+                        @Model.NombreMacro
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold text-dark">Nuevo Peso (0.0 a 1.0)</label>
+                    @* Usamos type="text" para evitar que el navegador bloquee el teclado con decimales *@
+                    <input name="Peso"
+                           id="Peso"
+                           class="form-control form-control-lg border-2 border-warning"
+                           type="text"
+                           value="@Model.Peso.ToString().Replace(",", ".")"
+                           required />
+                    <small class="text-muted">Use punto para decimales (ejemplo: 0.25)</small>
+                </div>
+
+                @* Muestra errores de validación si la suma total se pasa de 1.0 *@
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger shadow-sm">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                    </div>
+                }
+
+                <div class="d-flex gap-2 pt-3">
+                    <button type="submit" class="btn btn-success btn-lg px-5 shadow">
+                        <i class="bi bi-check-lg"></i> Guardar Cambios
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

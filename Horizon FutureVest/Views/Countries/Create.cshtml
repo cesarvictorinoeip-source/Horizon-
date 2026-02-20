@@ -1,0 +1,41 @@
+﻿@model Application.ViewModels.CountryViewModels
+
+@{
+    ViewData["Title"] = "Crear País";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 500px; border-radius: 15px;">
+        <div class="card-header bg-primary text-white text-center fw-bold">
+            Nuevo País
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-bold">Nombre del país</label>
+                    <input asp-for="Name" class="form-control" placeholder="Ej: México" />
+                    <span asp-validation-for="Name" class="text-danger small"></span> @* Mensaje de validación *@
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="IsoCode" class="form-label fw-bold">Código ISO</label>
+                    <input asp-for="IsoCode" class="form-control" placeholder="Ej: MX" />
+                    <span asp-validation-for="IsoCode" class="text-danger small"></span> @* Mensaje de validación *@
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary fw-bold">Crear país</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Volver atrás</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    } @* Habilita validación en tiempo real *@
+}

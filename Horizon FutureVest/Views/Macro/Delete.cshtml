@@ -1,0 +1,38 @@
+﻿@model Application.ViewModels.MacroindicadorViewModel
+
+@{
+    ViewData["Title"] = "Eliminar Macroindicador";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger shadow">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Confirmar Eliminación</h4>
+                </div>
+                <div class="card-body text-center p-4">
+                    <p class="fs-5">¿Estás seguro de que deseas eliminar el macroindicador?</p>
+                    <h3 class="text-danger fw-bold mb-4">"@Model.Nombre"</h3>
+
+                    <div class="alert alert-warning small">
+                        <i class="bi bi-info-circle"></i> Esta acción no se puede deshacer y desaparecerá de la lista.
+                    </div>
+
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="d-grid gap-2 d-md-block">
+                            <button type="submit" class="btn btn-danger px-4">
+                                <i class="bi bi-trash"></i> Eliminar Definitivamente
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary px-4">
+                                <i class="bi bi-arrow-left"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

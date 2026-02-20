@@ -1,0 +1,5 @@
+SELECT TOP (1000) [Id]
+      ,[Name]
+      ,[Weight]
+      ,[IsHigherBetter]
+  FROM [FutureVestApp].[dbo].[MacroIndicadores]

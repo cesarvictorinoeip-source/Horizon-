@@ -1,0 +1,60 @@
+﻿@model List<Application.ViewModels.IndicadorViewModels>
+
+<div class="container mt-4">
+    <h2 class="fw-bold mb-4">Indicadores por Países</h2>
+
+    <form method="get" asp-action="Index" class="row g-3 mb-4 bg-light p-3 rounded border shadow-sm">
+        <div class="col-md-4">
+            <label class="form-label fw-bold">Filtrar por País</label>
+            <select name="paisId" class="form-select" asp-items="ViewBag.Paises">
+                <option value="">-- Todos los países --</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label fw-bold">Filtrar por Año</label>
+            <input type="number" name="anio" class="form-control" placeholder="Ej: 2024" />
+        </div>
+        <div class="col-md-5 d-flex align-items-end gap-2">
+            <button type="submit" class="btn btn-dark px-4">Aplicar Filtro</button>
+            <a asp-action="Create" class="btn btn-success shadow-sm">+ Nuevo Indicador</a>
+        </div>
+    </form>
+
+    <div class="table-responsive shadow-sm rounded">
+        <table class="table table-hover border align-middle bg-white">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre del País</th>
+                    <th>Macroindicador</th>
+                    <th>Valor</th>
+                    <th>Año</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">@item.PaisNombre</td>
+                            <td>@item.MacroindicadorNombre</td>
+                            <td class="text-primary fw-bold">@item.Valor</td>
+                            <td>@item.Anio</td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Editar</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-muted p-4">No hay indicadores registrados para este filtro.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

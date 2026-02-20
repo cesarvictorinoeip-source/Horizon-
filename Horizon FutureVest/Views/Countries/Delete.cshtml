@@ -1,0 +1,14 @@
+﻿@model Application.ViewModels.CountryViewModels
+
+<div class="container mt-5">
+    <div class="alert alert-danger shadow-sm text-center">
+        <h4 class="fw-bold">¿Está seguro que desea eliminar este país?</h4>
+        <p class="mb-4">Vas a eliminar a: <strong>@Model.Name (@Model.IsoCode)</strong></p>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger px-4">Aceptar</button>
+            <a asp-action="Index" class="btn btn-secondary px-4">Cancelar</a>
+        </form>
+    </div>
+</div>

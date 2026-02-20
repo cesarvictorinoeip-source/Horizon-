@@ -1,0 +1,46 @@
+﻿@model Application.ViewModels.IndicadorViewModels
+
+<div class="container mt-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-header bg-primary text-white text-center fw-bold">Nuevo Indicador por País</div>
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger small"></div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">País</label>
+                    <select asp-for="PaisId" class="form-select" asp-items="Model.Paises">
+                        <option value="">-- Seleccione un país --</option>
+                    </select>
+                    <span asp-validation-for="PaisId" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Macroindicador</label>
+                    <select asp-for="MacroindicadorId" class="form-select" asp-items="Model.Macroindicadores">
+                        <option value="">-- Seleccione indicador --</option>
+                    </select>
+                    <span asp-validation-for="MacroindicadorId" class="text-danger small"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Valor</label>
+                        <input asp-for="Valor" type="number" step="0.01" class="form-control" />
+                        <span asp-validation-for="Valor" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Año</label>
+                        <input asp-for="Anio" type="number" class="form-control" />
+                        <span asp-validation-for="Anio" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary fw-bold">Crear Indicador</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Volver atrás</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

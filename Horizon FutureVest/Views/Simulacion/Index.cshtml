@@ -1,0 +1,132 @@
+﻿@model Application.ViewModels.Simulacion2._0.SimulacionRankingViewModel
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Simulación de Ranking";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4 text-primary">
+        <i class="bi bi-trophy-fill me-2"></i> Simulación de Ranking
+    </h2>
+
+    <!-- Botón para agregar nuevo macroindicador -->
+    <div class="mb-3">
+        @if (Model.MacroindicadoresSimulados.Sum(m => m.PesoSimulacion) < 1)
+        {
+            <a asp-action="Agregar" class="btn btn-primary">
+                <i class="bi bi-plus-circle me-1"></i> Agregar Macroindicador
+            </a>
+        }
+        else
+        {
+            <div class="alert alert-warning d-flex align-items-center" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                Ya se ha alcanzado el peso total de 1. No se pueden agregar más macroindicadores.
+            </div>
+        }
+    </div>
+
+    <!-- Listado de macroindicadores simulados -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-dark text-white">
+            <i class="bi bi-list-stars me-2"></i> Macroindicadores Simulados
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Peso</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.MacroindicadoresSimulados)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.PesoSimulacion</td>
+                                <td>
+                                    <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-sm btn-warning me-1">
+                                        <i class="bi bi-pencil-square"></i> Editar
+                                    </a>
+                                    <a asp-action="Eliminar" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i> Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario para seleccionar año y simular ranking -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-success text-white">
+            <i class="bi bi-bar-chart-line me-2"></i> Simulación
+        </div>
+        <div class="card-body">
+            <form asp-action="SimularRanking" method="post">
+                <div class="mb-3">
+                    <label for="AnioSeleccionado" class="form-label fw-bold">Año</label>
+                    @Html.DropDownListFor(
+                    model => model.AnioSeleccionado,
+                                        Model.AñosDisponibles,
+                                        new { @class = "form-select" }
+                                        )
+                </div>
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-play-circle me-1"></i> Simular Ranking
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mensaje si aplica -->
+    @if (!string.IsNullOrEmpty(Model.Mensaje))
+    {
+        <div class="alert alert-info d-flex align-items-center mt-3" role="alert">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            @Model.Mensaje
+        </div>
+    }
+
+    <!-- Resultados del ranking -->
+    @if (Model.ResultadoRanking.Any())
+    {
+        <div class="card shadow-sm mt-4">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-bar-chart-fill me-2"></i> Resultado de la Simulación
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>País</th>
+                                <th>Código ISO</th>
+                                <th>Scoring</th>
+                                <th>Tasa de Retorno</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var r in Model.ResultadoRanking)
+                            {
+                                <tr>
+                                    <td>@r.NombrePais</td>
+                                    <td>@r.CodigoIso</td>
+                                    <td>@r.Scoring.ToString("F4")</td>
+                                    <td>@r.TasaRetorno.ToString("F2")%</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

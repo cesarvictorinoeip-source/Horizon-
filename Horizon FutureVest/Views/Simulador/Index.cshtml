@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "Configuración de Simulación";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h2>Indicadores Seleccionados</h2>
+        @if (ViewBag.PuedeAgregar == true)
+        {
+            <a asp-action="Agregar" class="btn btn-primary">Agregar Indicador</a>
+        }
+    </div>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+
+    <table class="table table-bordered shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Peso Actual</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Peso.ToString("P0") (@item.Peso)</td>
+                    <td>
+                        <form asp-action="ConfirmarEliminar" asp-route-id="@item.Id" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar indicador?')">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="fw-bold">
+                <td>Total:</td>
+                <td colspan="2" class="@(ViewBag.SumaTotal == 1.0m ? "text-success" : "text-danger")">
+                    @ViewBag.SumaTotal.ToString("P0") (@ViewBag.SumaTotal)
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <hr />
+
+    <div class="card shadow-sm mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Generar Ranking</h5>
+            <form asp-action="GenerarRanking" method="get" class="row g-3 align-items-end">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Seleccione el Año de Análisis:</label>
+                    <select name="anio" class="form-select">
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-success btn-lg w-100" @(ViewBag.SumaTotal == 1.0m ? "" : "disabled")>
+                        <i class="bi bi-play-fill"></i> Obtener Ranking
+                    </button>
+                </div>
+            </form>
+            @if (ViewBag.SumaTotal != 1.0m)
+            {
+                <small class="text-danger mt-2 d-block text-center">
+                    * La suma de los pesos debe ser exactamente 100% (1.0) para simular.
+                </small>
+            }
+    </div>
+</div>

@@ -1,0 +1,14 @@
+﻿@model Application.ViewModels.MacroindicadorViewModel
+
+<div class="container mt-4">
+    <h2>Editar Macroindicador</h2>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-3">
+            <label class="form-label">Nombre del Indicador</label>
+            <input asp-for="Nombre" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

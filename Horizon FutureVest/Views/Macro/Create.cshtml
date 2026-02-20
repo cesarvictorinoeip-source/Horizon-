@@ -1,0 +1,69 @@
+﻿@model Application.ViewModels.MacroindicadorViewModel
+
+@{
+    ViewData["Title"] = (Model.Id == 0)
+        ? "Nuevo Macroindicador"
+        : "Editar Macroindicador";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                @* Ajuste: Color azul para nuevo, amarillo para editar *@
+                <div class="card-header @(Model.Id == 0 ? "bg-primary" : "bg-warning text-dark") text-white">
+                    <h4 class="mb-0">
+                        <i class="bi @(Model.Id == 0 ? "bi-plus-circle" : "bi-pencil-square")"></i>
+                        @(Model.Id == 0 ? "Configurar Indicador" : "Editar Indicador")
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post">
+
+                        @* CLAVE: Sin esto el botón Editar no funciona correctamente *@
+                        <input type="hidden" asp-for="Id" />
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Nombre" class="form-label fw-bold">Nombre</label>
+                            <input asp-for="Nombre" class="form-control" placeholder="Ej: PIB, Inflación..." />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Peso" class="form-label fw-bold">Peso (0.00 a 1.00)</label>
+                            <input asp-for="Peso" type="number" step="0.01" class="form-control" placeholder="0.25" />
+                            <span asp-validation-for="Peso" class="text-danger"></span>
+                            <div class="form-text">Recuerde: la suma de todos los pesos debe ser 1.00.</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Lógica de Valoración</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" asp-for="MasAltoMejor" id="logicSwitch">
+                                <label class="form-check-label" for="logicSwitch">
+                                    ¿Valores más altos son mejores?
+                                </label>
+                            </div>
+                            <small class="text-muted">Active para indicadores como PIB. Desactive para Inflación o Desempleo.</small>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success text-white fw-bold">
+                                <i class="bi bi-save"></i> Guardar y Aplicar
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

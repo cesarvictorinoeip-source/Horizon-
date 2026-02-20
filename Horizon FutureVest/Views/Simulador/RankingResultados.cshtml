@@ -1,0 +1,53 @@
+﻿@model List<Application.ViewModels.RankingViewModel>
+
+@{
+    ViewData["Title"] = "Resultados del Ranking";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0">Resultados de la Simulación</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="width: 100px;">Posición</th>
+                        <th>País</th>
+                        <th class="text-end">Puntaje Final (Scoring)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int posicion = 1;
+                    }
+                    @foreach (var pais in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">#@posicion</td>
+                            <td>@pais.PaisNombre</td>
+                            <td class="text-end fw-bold text-primary">
+                                @pais.Scoring.ToString("F4")
+                            </td>
+                        </tr>
+                        posicion++;
+                    }
+                </tbody>
+            </table>
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-warning text-center">
+                    No se generaron resultados. Verifica los nombres de los indicadores.
+                </div>
+            }
+
+            <div class="mt-4">
+                <a asp-controller="Simulador" asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Volver a la Configuración
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

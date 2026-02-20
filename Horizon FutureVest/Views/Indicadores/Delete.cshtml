@@ -1,0 +1,33 @@
+﻿@model Application.ViewModels.IndicadorViewModels
+
+<div class="container mt-5">
+    <div class="card border-danger shadow-sm mx-auto" style="max-width: 500px;">
+        <div class="card-header bg-danger text-white text-center fw-bold">
+            ¿Eliminar este indicador?
+        </div>
+        <div class="card-body">
+            <p class="text-center">Estás a punto de borrar un registro permanente.</p>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4 text-muted">País:</dt>
+                <dd class="col-sm-8 fw-bold">@Model.PaisNombre</dd>
+
+                <dt class="col-sm-4 text-muted">Indicador:</dt>
+                <dd class="col-sm-8">@Model.MacroindicadorNombre</dd>
+
+                <dt class="col-sm-4 text-muted">Año:</dt>
+                <dd class="col-sm-8">@Model.Anio</dd>
+
+                <dt class="col-sm-4 text-muted">Valor:</dt>
+                <dd class="col-sm-8 text-danger">@Model.Valor</dd>
+            </dl>
+        </div>
+        <div class="card-footer bg-transparent d-flex justify-content-center gap-2 pb-4">
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger px-4">Confirmar Eliminación</button>
+                <a asp-action="Index" class="btn btn-outline-secondary px-4">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>

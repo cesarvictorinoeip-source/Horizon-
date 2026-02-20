@@ -1,0 +1,41 @@
+﻿@model Application.ViewModels.ReturnRate.ReturnRateViewModels
+
+@{
+    ViewData["Title"] = "Editar Tasa de Retorno";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm mx-auto" style="max-width: 600px; border-radius: 15px;">
+        <div class="card-header bg-warning text-dark fw-bold text-center" style="border-radius: 15px 15px 0 0;">
+            <h4 class="mb-0">Modificar Configuración de Tasa</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Edit" method="post">
+                @* El ID es oculto para que el controlador sepa qué registro actualizar *@
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-bold">Nombre del Rango</label>
+                    <input asp-for="Name" class="form-control" placeholder="Ej: Riesgo Moderado" required />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="MinRate" class="form-label fw-bold">Tasa Mínima (%)</label>
+                        <input asp-for="MinRate" type="number" step="0.01" class="form-control" required />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="MaxRate" class="form-label fw-bold">Tasa Máxima (%)</label>
+                        <input asp-for="MaxRate" type="number" step="0.01" class="form-control" required />
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-3">
+                    <button type="submit" class="btn btn-warning fw-bold">Actualizar Cambios</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancelar y Volver</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

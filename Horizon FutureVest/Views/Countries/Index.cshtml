@@ -1,0 +1,34 @@
+﻿@model List<Application.ViewModels.CountryViewModels>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Mantenimiento de Países</h2>
+        <a asp-action="Create" class="btn btn-primary shadow-sm">+ Nuevo País</a>
+    </div>
+
+    <div class="table-responsive shadow-sm rounded">
+        <table class="table table-hover border align-middle bg-white">
+            <thead class="table-light">
+                <tr>
+                    <th>Nombre del país</th>
+                    <th>Código ISO</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold">@item.Name</td>
+                        <td><span class="badge bg-secondary">@item.IsoCode</span></td>
+                        <td class="text-center">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning mx-1">Editar</a>
+                            @* Este botón ahora debe ir a la pantalla de confirmación *@
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger mx-1">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

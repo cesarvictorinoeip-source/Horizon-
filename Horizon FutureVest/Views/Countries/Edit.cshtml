@@ -1,0 +1,41 @@
+﻿@model Application.ViewModels.CountryViewModels
+
+@{
+    ViewData["Title"] = "Editar País";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 500px; border-radius: 15px;">
+        <div class="card-header bg-warning text-dark text-center fw-bold">
+            Editar País
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" /> @* Campo oculto obligatorio *@
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-bold">Nombre del país</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="IsoCode" class="form-label fw-bold">Código ISO</label>
+                    <input asp-for="IsoCode" class="form-control" />
+                    <span asp-validation-for="IsoCode" class="text-danger small"></span>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-warning fw-bold text-dark">Guardar país</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Volver atrás</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

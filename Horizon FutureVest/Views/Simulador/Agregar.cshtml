@@ -1,0 +1,23 @@
+﻿@using Application.ViewModels.Simulacion
+@model SimulacionFormViewModel
+
+<div class="container mt-4">
+    <form asp-action="Agregar" method="post">
+        <div class="mb-3">
+            <label class="form-label">Seleccione Macroindicador</label>
+            @* EL ATRIBUTO NAME ES LA CLAVE AQUI *@
+            <select name="NombreMacro" class="form-select">
+                <option value="PIB">PIB</option>
+                <option value="Inflacion">Inflación</option>
+                <option value="Desempleo">Desempleo</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Peso para la Simulación (0.1 a 1.0)</label>
+            <input name="Peso" type="text" class="form-control" placeholder="Ejemplo: 0.5" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Agregar a Simulación</button>
+    </form>
+</div>

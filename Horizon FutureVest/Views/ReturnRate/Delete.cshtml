@@ -1,0 +1,25 @@
+﻿@model ReturnRateViewModels
+@{
+    ViewData["Title"] = "Eliminar Tasa";
+}
+
+<div class="container mt-5">
+    <div class="card border-danger shadow mx-auto" style="max-width: 500px;">
+        <div class="card-header bg-danger text-white fw-bold">
+            Confirmar Eliminación
+        </div>
+        <div class="card-body text-center">
+            <p>¿Estás seguro de que deseas eliminar la tasa?</p>
+            <h4 class="fw-bold">@Model.Name</h4>
+            <p class="text-muted small">Esta acción no se puede deshacer.</p>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="d-flex justify-content-center gap-3 mt-4">
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-danger">Eliminar Definitivamente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

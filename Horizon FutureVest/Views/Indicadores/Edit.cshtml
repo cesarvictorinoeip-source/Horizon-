@@ -1,0 +1,40 @@
+﻿@model Application.ViewModels.IndicadorViewModels
+
+<div class="container mt-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-header bg-warning text-dark text-center fw-bold">Editar Valor de Indicador</div>
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="PaisId" />
+                <input type="hidden" asp-for="MacroindicadorId" />
+                <input type="hidden" asp-for="Anio" />
+
+                <div class="mb-3">
+                    <label class="form-label">País</label>
+                    <input class="form-control bg-light" value="@Model.PaisNombre" disabled />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Macroindicador</label>
+                    <input class="form-control bg-light" value="@Model.MacroindicadorNombre" disabled />
+                </div>
+
+                <div class="mb-3 text-danger small fw-bold">
+                    * Solo el valor del indicador es editable según el mandato.
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Valor del Indicador</label>
+                    <input asp-for="Valor" type="number" step="0.01" class="form-control" autofocus />
+                    <span asp-validation-for="Valor" class="text-danger small"></span>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-warning fw-bold">Guardar Cambios</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Volver atrás</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
