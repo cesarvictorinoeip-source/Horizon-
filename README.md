@@ -1,4 +1,4 @@
-# Horizon FutureVest2
+
 # 🌎 Horizon FutureVest
 
 Aplicación web desarrollada con **ASP.NET Core MVC** y **Entity Framework Core** que ayuda a un analista a decidir en qué países es más atractivo invertir. A partir de indicadores macroeconómicos registrados por año, calcula un **ranking de países** con un modelo de **scoring ponderado** y estima la **tasa de retorno** de cada uno.
